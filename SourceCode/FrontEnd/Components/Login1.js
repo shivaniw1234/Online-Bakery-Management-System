@@ -6,43 +6,52 @@ import axios, { Axios } from "axios"
 export default function Login1()
 {
 
-  let [user,setUser] = useState({email:"",pwd:""})
+  let [email,setEmail] = useState("")
+  let[password,setPassword]=useState("")
+
   let navigate = useNavigate()
-  
+  let [actor,setActor]=useState('')
   //const dispatch= useDispatch()
  
   function loginHandler()
   {
-    if(document.getElementById("radio").value=="admin")
+    if(actor==="admin")
     {
-        console.log("admin",user.email);
-        axios.post('http://localhost:8080/user/loginAd',{emailId:user.email,password:user.pwd})
+        console.log("admin",email);
+        let login={}
+        login.emailId=email;
+        login.password=password;
+        // axios.post('http://localhost:8080/user/loginAd',{emailId:user.email,password:user.pwd})
+        axios.post('http://localhost:8080/user/loginAd',login)
       .then(data =>{
             console.log(data.data)
            if(data.data === "authorized")
            {
             alert("success");
-            sessionStorage["email"]=user.email;
-              navigate("/prod")
+            sessionStorage.setItem("sessionName","rohit");
+            sessionStorage.setItem("admin",email);
+              navigate("/admin")
            }
-           else if (data.data === "unauthorized")
+           else 
            {
             alert("failed");
-              navigate("/prod");
+              navigate("/login");
            }
           
       } ).catch(error => {  console.log(error); alert("error occured") });
     }      
- else if(document.getElementById("radio1").value=="customer")
+ else 
   {
-    axios.post('http://localhost:8080/user/loginCust',{emailId:user.email,password:user.pwd})
+    console.log("customer",email);
+    axios.post('http://localhost:8080/user/loginCust',{emailId:email,password:password})
       .then(data =>{
         console.log("customer",data.data)
        if(data.data === "valid")
        {
         alert("success");
-        sessionStorage["email"]=user.email;
-          navigate("/")
+        sessionStorage.setItem("sessionName","rohit");
+        sessionStorage.setItem("username",email);
+          navigate("/chome")
        }
        else if (data.data === "invalid")
        {
@@ -57,15 +66,15 @@ export default function Login1()
 
     return(
         <>
-    <body>
+    <body >
         <section className="vh-100" style={{"background-color": "#b6c6d8;"}}>
-            <div className="container py-5 h-100">
+            <div className="container py-5 h-100" >
               <div className="row d-flex justify-content-center align-items-center h-100">
                 <div className="col col-xl-10">
                   <div className="card" style={{"border-radius": "1rem;"}}>
                     <div className="row g-0">
                       <div className="col-md-8 col-lg-6 d-none d-md-block">
-                        <img src="assets/img/login.jpg" width="100%" height="100%"
+                        <img src="../assets/images/bakery-login.jpg"
                           alt="login form"  style={{"border-radius": "1rem 0 0 1rem;"}}  />
                       </div>
                       <div className="col-md-4 col-lg-6 d-flex align-items-center">
@@ -79,17 +88,17 @@ export default function Login1()
                             </div>
           
                         
-                                  <label htmlFor="radio"> Admin</label>  <input type="radio" id="radio" name="r1" style={{"margin-right":"130px"}} value="admin"/>
-                                  <label htmlFor="radio1">Customer </label> <input type="radio" id="radio1" name="r1"  style={{"margin-right":"130px;"}} value="customer"/>
+                                  <label htmlFor="radio"> Admin</label>  <input type="radio" id="radio" name="r1" style={{"margin-right":"130px"}} onClick={(e)=>{setActor("admin")}}/>
+                                  <label htmlFor="radio1">Customer </label> <input type="radio" id="radio1" name="r1"  style={{"margin-right":"130px;"}} onClick={(e)=>{setActor("customer")}}/>
                               
           
                             <div className="form-outline mb-4">
-                              <input type="email" id="form2Example17" name="email" placeholder=" Email "className="form-control form-control-lg" onBlur={(e)=>{setUser({email:e.target.value})}}/>
+                              <input type="email" id="form2Example17" name="email" placeholder=" Email "className="form-control form-control-lg" onChange={(e)=>{setEmail(e.target.value)}}/>
                               <label className="form-label" for="form2Example17">Email address</label>
                             </div>
           
                             <div className="form-outline mb-4">
-                              <input type="password" id="form2Example27" placeholder="Password" name="pwd" className="form-control form-control-lg" onBlur={(e)=>{setUser({pwd:e.target.value})}}/>
+                              <input type="password" id="form2Example27" placeholder="Password" name="pwd" className="form-control form-control-lg" onChange={(e)=>{setPassword(e.target.value)}}/>
                               <label className="form-label" for="form2Example27">Password</label>
                             </div>
           
@@ -102,7 +111,7 @@ export default function Login1()
                                 style={{"color": "#393f81;"}}>Register here</a></p>
                             
                           </form>
-                          <span>{user.password}{user.email}</span>
+                          <span>{password}{email}</span>
                         </div>
                       </div>
                     </div>
