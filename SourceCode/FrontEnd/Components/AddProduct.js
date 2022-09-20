@@ -116,52 +116,56 @@ export default function AdminDash() {
 
                                                 <form>
 
-                                                    <div className="d-flex align-items-center mb-3 pb-1">
-                                                        {/* <i className="fas fa-cubes fa-2x me-3" style={{"color": "#ff6219;"}}></i> */}
-                                                        <span className="h1 fw-bold mb-0" style={{ "text-align": "center" }}>ADD PRODUCT</span>
-                                                    </div>
+                                                <div className="d-flex align-items-center mb-3 pb-1">
+                              {/* <i className="fas fa-cubes fa-2x me-3" style={{"color": "#ff6219;"}}></i> */}
+                              <span className="h1 fw-bold mb-0" style={{"text-align":"center"}}>ADD PRODUCT</span>
+                            </div>
+
+                                                    
+
+                                                
+                            <div className="form-outline mb-4">
+                            <label className="form-label" for="form2Example17">Product Name </label>
+                              <input type="text" id="form2Example17" maxLength={"25"} name="Pname" placeholder="Enter Product Name " className="form-control form-control-lg"   required onChange={(e)=>{setProduct_name(e.target.value)}}/>
+                              
+                            </div>
 
 
+                                                 
+                            <div className="form-outline mb-4">
+                            <label className="form-label" for="form2Example17">Category Name </label>
+                              <input type="text" id="form2Example17" maxLength={"25"} name="Pname" placeholder="Enter Category Name " className="form-control form-control-lg"   required onChange={(e)=>{setcategory_name(e.target.value)}}/>
+                             
+                            </div>
+                            
 
 
-                                                    <div className="form-outline mb-4">
-                                                        <label className="form-label" for="form2Example17">Product Name </label>
-                                                        <input type="text" id="form2Example17" maxLength={"25"} name="Pname" placeholder="Enter Product Name " className="form-control form-control-lg" required onChange={(e) => { setProduct_name(e.target.value) }} />
+                            <div className="form-outline mb-4">
+                            <label className="form-label" for="form2Example17">Selling Price </label>
+                              <input type="number" id="form2Example17" maxLength={"25"} name="cost" placeholder="Enter Selling Price " className="form-control form-control-lg"  required onChange={(e)=>{setSelling_price(e.target.value)}}/>
+                             
+                            </div>
 
-                                                    </div>
+                            <div className="form-outline mb-4">
+                            <label className="form-label" for="form2Example17">Stock </label>
+                              <input type="number" id="form2Example17" maxLength={"25"} name="cost" placeholder="Enter Stock " className="form-control form-control-lg" required onChange={(e)=>{setstock(e.target.value)}}/>
+                             
+                            </div>
 
-
-
-                                                    <div className="form-outline mb-4">
-                                                        <label className="form-label" for="form2Example17">Category Name </label>
-                                                        <input type="text" id="form2Example17" maxLength={"25"} name="Pname" placeholder="Enter Category Name " className="form-control form-control-lg" required onChange={(e) => { setcategory_name(e.target.value) }} />
-
-                                                    </div>
-
-
-
-                                                    <div className="form-outline mb-4">
-                                                        <label className="form-label" for="form2Example17">Selling Price </label>
-                                                        <input type="number" id="form2Example17" maxLength={"25"} name="cost" placeholder="Enter Selling Price " className="form-control form-control-lg" required onChange={(e) => { setSelling_price(e.target.value) }} />
-
-                                                    </div>
-
-                                                    <div className="form-outline mb-4">
-                                                        <label className="form-label" for="form2Example17">Stock </label>
-                                                        <input type="number" id="form2Example17" maxLength={"25"} name="cost" placeholder="Enter Stock " className="form-control form-control-lg" required onChange={(e) => { setstock(e.target.value) }} />
-
-                                                    </div>
+                            
+                            <div className="form-outline mb-4">
+                            <label className="form-label" for="form2Example17">Image </label>
+                              <input type="file" id="form2Example17" maxLength={"25"} name="cost" placeholder="Add Image " className="form-control form-control-lg" required onChange={(event) => { setImage(event.target.files[0]) }}/>
+                             
+                            </div>
 
 
-                                                    <div className="form-outline mb-4">
-                                                        <label className="form-label" for="form2Example17">Image </label>
-                                                        <input type="file" id="form2Example17" maxLength={"25"} name="cost" placeholder="Add Image " className="form-control form-control-lg" required onChange={(event) => { setImage(event.target.files[0]) }} />
+                                                  
 
-                                                    </div>
 
                                                     <div className="pt-1 mb-4">
-                                                        <button className="btn btn-dark btn-lg btn-block" type="button" onClick={addDataHandler}>Submit</button>
-                                                    </div>
+                              <button className="btn btn-dark btn-lg btn-block" type="button" onClick={addDataHandler}>Submit</button>
+                            </div>
                                                 </form>
                                             </div>
                                         </div>
@@ -173,6 +177,35 @@ export default function AdminDash() {
                     </div>
                 </section>
             </body>
+
+
+
+
+
+
+
         </div>
- )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    )
 }
