@@ -1,12 +1,43 @@
 
-
+import { useEffect, useState } from "react";
 import React from "react"; 
 import ReactDOM from "react-dom";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 function Header(){
+
+   let [isuser,setIsuser]=useState(false);
+   let[isadmin,setIsadmin]=useState(false);
+
+   useEffect(() => {
+
+      console.log("isuer",isuser)
+
+   if(sessionStorage.getItem("username")!=null)
+      setIsuser(true);
+   else
+      setIsuser(false);
+   
+
+   
+   if(sessionStorage.getItem("admin")!=null)
+      setIsadmin(true)
+   else
+      setIsadmin(false);
+  
+   }     );
+
+   function logout(){
+      sessionStorage.removeItem ("username");
+      sessionStorage.removeItem ("admin");
+      Navigate("/home");
+     
+      setIsadmin(false);
+      setIsuser(false);
+   }
 return(
 
 <div >
+
     <header className="full_bg">
 
     <div className="header">
@@ -15,9 +46,9 @@ return(
              <div >
                 <div className="full">
                    <div className="center-desk">
-                      <div className="logo">
-                         {/* <a href="index.html"><img src="assets/images/logo.png" alt="#" /></a> */}
-                      </div>
+                      {/* <div className="logo">
+                          <a href="index.html"><img src="assets/images/logo.png" alt="#" /></a> 
+                      </div> */}
                    </div>
                 </div>
              </div>
@@ -31,22 +62,58 @@ return(
                          <li className="nav-item active">
                          <Link className="nav-link" to="/">Home</Link>
                          </li>
+                       
+                        
                          <li className="nav-item">
                          <Link className="nav-link" to="/about">About Us</Link>
                          </li>
-                         <li className="nav-item">
+                         {  isuser &&         <li className="nav-item">
                             <Link className="nav-link"  to="/ourProduct">our product</Link>
                          </li>
-                         {/*<li className="nav-item">
-                         <Link className="nav-link"  to="/gallery"></Link>
-</li>*/}
+}
                          <li className="nav-item">
                             <Link className="nav-link" to="/contact">Contact Us</Link>
                          </li>
+                          {/* { sessionStorage.getItem("username") == null ?  */}
+             { !isuser  && <li className="nav-item">
+                  <Link className="nav-link" to="/login" exact>
+                    <i
+                      className="far fa-user">
+                    </i>Login
+                  </Link>
 
-                         <li className="nav-item">
+                </li> 
+               }
+                <>
+             
+               {  isuser && 
+                
+               
+               <li className="nav-item"> 
+
+                   <Link className="nav-link" to="/cProfile" exact>
+                      <i
+                        className="far fa-user">
+                      </i>{sessionStorage.getItem("username")}
+                    </Link> </li> 
+
+}
+{  isuser &&       <li className="nav-item">
+                    <Link className="nav-link" onClick={logout} to='/' exact>
+                      <i
+                        className="fas fa-power-off">
+                      </i>LOGOUT
+                    </Link> </li> 
+                 }
+{  isuser && <li className="nav-item">
+                <Link className="nav-link" to="/cart">Cart</Link>
+                </li>
+}
+</>
+                {/* }   */}
+                       {/* <li className="nav-item">
                             <Link className="nav-link" to="/login">Login</Link>
-                         </li>
+                         </li> */}
                          {/* <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                Login
