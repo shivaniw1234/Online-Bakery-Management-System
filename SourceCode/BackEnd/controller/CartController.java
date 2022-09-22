@@ -30,7 +30,7 @@ import com.app.repository.ProductRepository;
 import com.app.repository.UserRepository;
 import com.app.service.CartService;
 
-@CrossOrigin("*")
+@CrossOrigin( allowedHeaders = "*",origins="*")
 @RestController
 @RequestMapping(path="cart")
 public class CartController {
@@ -213,18 +213,63 @@ public class CartController {
 	
 //	}
 	
-	@DeleteMapping("/delete")
-	public boolean remove(@RequestBody Cart c)
+	@DeleteMapping("/remove")
+	public boolean remove(@RequestBody Cart2 c)
 	{
 		
-		return cserv.removeFromCart(c);
+//		User u=urep.findById(uid).get();
+//		if(u!=null) {
+			List<Cart2> carts=crep.findByUserId(c.getUserId());
+		
+			for(int i = 0; i < carts.size(); i++){
+				Product p=prep.findById(carts.get(i).getProductId()).get();
+				if(c.getProductId()==p.getProdId())
+				{
+					Cart2 c2=crep.CheckCart(c.getUserId(), c.getProductId());
+					if(c2!=null)
+					{
+						crep.deleteById(c2.getCartId());
+						return true;
+					}
+					else
+						return false;
+				}
+				
+			}
+		
+		return false;
+//		return cserv.removeFromCart(c);
 	}
 	
 	@PutMapping("/update")
-	public boolean update(@RequestBody Cart c)
+	public Cart2 update(@RequestBody Cart2 c)
 	{
-		return cserv.updateCart(c);
+		Cart2 c1=crep.CheckCart(c.getUserId(), c.getProductId());
+		c1.setQty(c.getQty());
+		
+		return crep.save(c1);
+//		if(c.getQty()>0)
+//		{
+//			c1.setQty(c1.getQty()+c.getQty());
+//			return true;
+//		}
+//		else
+//		{
+//			c1.setQty(c1.getQty()-c.getQty());
+//			return true;
+//		}
+		
+		
+//		return cserv.updateCart(c);
 	}
+	
+	@GetMapping("/qty")
+	public int getQty(@RequestBody Cart2 c)
+	{
+		Cart2 c1=crep.CheckCart(c.getProductId(), c.getUserId());
+		return c1.getQty();
+	}
+	
 	
 	
 }
