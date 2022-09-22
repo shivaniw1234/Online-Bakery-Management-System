@@ -29,6 +29,7 @@ export default function Product(props) {
   }
   console.log(c);
 
+  
   function f1(x) {
   
     console.log("inside f1 prod id",x);
@@ -44,7 +45,8 @@ export default function Product(props) {
     console.log("inside f1 before axios");
 
     axios.post("http://localhost:8080/cart/add", cart).
-    then((res) => { console.log("adding to cart",res.data);  }).catch((err) => { console.log("error adding to cart",err) });
+    then((res) => { console.log("adding to cart",res.data); 
+  alert("product added to the cart")}).catch((err) => { console.log("error adding to cart",err) });
    
     console.log("inside f1 after axios");
   }
@@ -93,11 +95,13 @@ export default function Product(props) {
       let email=sessionStorage.getItem("username");
       console.log("inside useffect before axios geeting userid --email",email);
 
-      axios.get(`http://localhost:8080/user/getId/${email}`, {}).
-      then((res) => {
-        setUserid(res.data); console.log("userid",res.data);let x=res.data; return x ;} ).then((x) => { 
-        sessionStorage.setItem("userid",x);
-         }).catch((err) => { console.log(err);});
+      // axios.get(`http://localhost:8080/user/getId/${email}`, {}).
+      // then((res) => {
+      //   setUserid(res.data); console.log("userid",res.data);let x=res.data; return x ;} ).then((x) => { 
+      //   sessionStorage.setItem("userid",x);
+      //    }).catch((err) => { console.log(err);});
+
+      console.log("userid",sessionStorage.getItem("userid"));
 
   }, []);
 
@@ -105,7 +109,7 @@ console.log("products list",prod);
 
   return (
     <div><Header></Header>
-    <div style={{ "backgroundColor": "lightblue" ,"width":"30%"}}>
+   <center> <div style={{ "backgroundColor": "lightblue" ,"width":"30%"}}>
       <ol>{prod.map((ele) => {
         return (<CardActionArea  >
           <Card >
@@ -149,6 +153,7 @@ console.log("products list",prod);
 
 
     </div>
+    </center>
     </div>
   )
 
